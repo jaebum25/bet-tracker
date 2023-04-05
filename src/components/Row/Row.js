@@ -24,7 +24,7 @@ export default function Row({ todo, handleDelete, data }) {
           <br/>
           {data.bookmakers[0].markets[0].outcomes[1].price}
         </td>
-        <td>
+        {/* <td>
           <hr/>
           {data.bookmakers[1].title}
           <br/>
@@ -33,8 +33,8 @@ export default function Row({ todo, handleDelete, data }) {
           v.
           <br/>
           {data.bookmakers[1].markets[0].outcomes[1].price}
-        </td>
-        <td>
+        </td> */}
+        {/* <td>
           {
             data.forEach((bookmaker, index) => {
               data.push(
@@ -44,7 +44,7 @@ export default function Row({ todo, handleDelete, data }) {
               )
             })
           }
-        </td>
+        </td> */}
         <td>
           <button onClick={() => handleDelete(todo.id)}>X</button>
         </td>
