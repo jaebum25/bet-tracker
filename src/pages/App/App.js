@@ -12,12 +12,12 @@ export default function App() {
   useEffect(() => {
     fetch(`https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?regions=us&oddsFormat=american&apiKey=${apiKey}`)
     // return fetch("https://www.boredapi.com/api/activity")
-      .then(response => {
-        const requestsUsed = response.headers.get('x-requests-used');
-        const requestsRemaining = response.headers.get('x-requests-remaining');
-        console.log(`Requests used: ${requestsUsed}`);
-        console.log(`Requests remaining: ${requestsRemaining}`);
-      })
+      // .then(response => {
+      //   const requestsUsed = response.headers.get('x-requests-used');
+      //   const requestsRemaining = response.headers.get('x-requests-remaining');
+      //   console.log(`Requests used: ${requestsUsed}`);
+      //   console.log(`Requests remaining: ${requestsRemaining}`);
+      // })
       .then(response => response.json())
       .then(data => setData(data))
   }, []);

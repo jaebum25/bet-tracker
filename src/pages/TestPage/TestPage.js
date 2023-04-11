@@ -22,14 +22,14 @@ export default function TestPage({ data }) {
   //   .catch(err => console.log(err))
   // }, [])
 
-  // fetch(`https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?regions=us&oddsFormat=american&apiKey=`)
-  // .then(response => {
-  //   const requestsUsed = response.headers.get('x-requests-used');
-  //   const requestsRemaining = response.headers.get('x-requests-remaining');
-  //   console.log(`Requests used: ${requestsUsed}`);
-  //   console.log(`Requests remaining: ${requestsRemaining}`);
-  //   return response.json();
-  // })
+  fetch(`https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?regions=us&oddsFormat=american&apiKey=${apiKey}`)
+  .then(response => {
+    const requestsUsed = response.headers.get('x-requests-used');
+    const requestsRemaining = response.headers.get('x-requests-remaining');
+    console.log(`Requests used: ${requestsUsed}`);
+    console.log(`Requests remaining: ${requestsRemaining}`);
+    return response.json();
+  })
   // .then(data => {
     // Process the response data
   // });
@@ -158,9 +158,86 @@ export default function TestPage({ data }) {
     </tr>; 
   });
 
+  console.log(data)
+
   return (
     <>
-      <div>TestPage</div>
+      <div>H2H</div>
+      <table>
+        {data.map((item) => (
+          <tbody key={item.id}>
+            <hr/>
+            {item.home_team} vs. {item.away_team}
+            <br/>
+            <hr/>
+            {item.bookmakers
+            .filter((bookmaker) => 
+            bookmaker.title === "Bet365" || 
+            bookmaker.title === "BetMGM" ||
+            bookmaker.title === "BetRivers" ||
+            bookmaker.title === "Caesars" ||
+            bookmaker.title === "DraftKings" ||
+            bookmaker.title === "PointsBet (US)" ||
+            bookmaker.title === "FanDuel"
+            )
+            .map((bookmaker) => (
+              <tr key={bookmaker.id}>
+                {bookmaker.markets
+                .filter((market) => (
+                  market.key === "h2h"
+                ))
+                .map((market) => (
+                  market.outcomes
+                  .map((outcome) => (
+                    <td key={outcome.id}>
+                      {bookmaker.title} {outcome.price} {outcome.name}
+                    </td>
+                  ))
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        ))}
+      </table>
+      <h1>break</h1>
+      <div>Spread</div>
+      <table>
+        {data.map((item) => (
+          <tbody key={item.id}>
+            <hr/>
+            {item.home_team} vs. {item.away_team}
+            <br/>
+            <hr/>
+            {item.bookmakers
+            .filter((bookmaker) => 
+            bookmaker.title === "Bet365" || 
+            bookmaker.title === "BetMGM" ||
+            bookmaker.title === "BetRivers" ||
+            bookmaker.title === "Caesars" ||
+            bookmaker.title === "DraftKings" ||
+            bookmaker.title === "PointsBet (US)" ||
+            bookmaker.title === "FanDuel"
+            )
+            .map((bookmaker) => (
+              <tr key={bookmaker.id}>
+                {bookmaker.markets
+                .filter((market) => (
+                  market.key === "spreads"
+                ))
+                .map((market) => (
+                  market.outcomes
+                  .map((outcome) => (
+                    <td key={outcome.id}>
+                      {bookmaker.title} {outcome.price} {outcome.point} {outcome.name}
+                    </td>
+                  ))
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        ))}
+      </table>
+      <h1>break</h1>
       <table>
         <tbody>
           <th>
